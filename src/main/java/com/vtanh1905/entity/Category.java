@@ -17,7 +17,7 @@ public class Category {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private Integer id;
 	
 	@Column(length = 255)
 	private String title;
@@ -27,5 +27,37 @@ public class Category {
 	
 	@OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
 	private Set<Course> courses;
-	
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getIcon() {
+		return icon;
+	}
+
+	public void setIcon(String icon) {
+		this.icon = icon;
+	}
+
+//	public Set<Course> getCourses() {
+//		return courses;
+//	}
+//
+//	public void setCourses(Set<Course> courses) {
+//		this.courses = courses;
+//	}
+//	
 }

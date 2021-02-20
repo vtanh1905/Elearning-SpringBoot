@@ -16,9 +16,10 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "courses")
 public class Course {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private Integer id;
 	
 	@Column(length = 255)
 	private String title;
@@ -27,22 +28,22 @@ public class Course {
 	private String image;
 	
 	@Column(name = "letures_count")
-	private int letures_count;
+	private Integer leturesCount;
 	
 	@Column(name = "hour_count")
-	private int hour_count;
+	private Integer hourCount;
 	
 	@Column(name= "view_count")
-	private int view_count;
+	private Integer viewCount;
 	
 	@Column
 	private double price;
 	
 	@Column
-	private int discount;
+	private Integer discount;
 	
 	@Column(name = "promotion_price")
-	private double promotion_price;
+	private double promotionPrice;
 	
 	@Column(length = 255)
 	private String description;
@@ -51,14 +52,14 @@ public class Course {
 	private String content;
 	
 	@Column(name = "category_id")
-	private int category_id;
+	private Integer categoryId;
 	
 //	@Temporal(TemporalType.TIMESTAMP)
 //	@Column(name="timestamp", nullable = false,
 //		    columnDefinition="TIMESTAMP default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP")
 //	private Date timestamp = new Date();
 	@Column(name = "last_update")
-	private Timestamp last_update;
+	private Timestamp lastUpdate;
 	
 	@ManyToOne
 	@JoinColumn(name="category_id", insertable = false, updatable = false)

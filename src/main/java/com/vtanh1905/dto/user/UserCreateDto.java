@@ -1,60 +1,22 @@
-package com.vtanh1905.entity;
+package com.vtanh1905.dto.user;
 
-import java.util.Set;
+import com.vtanh1905.dto.BaseDto;
+import com.vtanh1905.entity.User;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-
-@Entity
-@Table(name = "users")
-public class User {
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
-
-	@Column(length = 100)
+public class UserCreateDto extends BaseDto<User> {
 	private String email;
 
-	@Column(length = 100)
 	private String fullname;
 
-	@Column(length = 100)
 	private String password;
 
-	@Column(length = 255)
 	private String avatar;
 
-	@Column(length = 20)
 	private String phone;
 
-	@Column(length = 255)
 	private String address;
 
-	@Column(name = "role_id")
 	private Integer roleId;
-
-	@ManyToOne
-	@JoinColumn(name = "role_id", insertable = false, updatable = false)
-	private Role role;
-	
-	@OneToMany(mappedBy = "user")
-	private Set<UserCourse> userCourses;
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
 
 	public String getEmail() {
 		return email;
@@ -111,4 +73,5 @@ public class User {
 	public void setRoleId(int roleId) {
 		this.roleId = roleId;
 	}
+
 }

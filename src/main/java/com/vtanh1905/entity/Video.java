@@ -15,7 +15,7 @@ public class Video {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private Integer id;
 	
 	@Column(length = 255)
 	private String title;
@@ -24,10 +24,10 @@ public class Video {
 	private String url;
 	
 	@Column(name = "time_count")
-	private int time_count;
+	private Integer timeCount;
 	
 	@Column(name = "course_id")
-	private int course_id;
+	private Integer courseId;
 	
 	@ManyToOne
 	@JoinColumn(name = "course_id", insertable = false, updatable = false)

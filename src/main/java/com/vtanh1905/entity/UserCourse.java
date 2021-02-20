@@ -26,5 +26,5 @@ public class UserCourse{
 	private Course course;
 	
 	@Column(name = "role_id")
-	private int role_id;
+	private Integer roleId;
 }

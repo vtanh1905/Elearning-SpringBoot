@@ -17,7 +17,7 @@ public class Role {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private Integer id;
 	
 	@Column(length = 30)
 	private String name;
@@ -28,18 +28,20 @@ public class Role {
 	@OneToMany(mappedBy = "role", fetch = FetchType.LAZY)
 	private Set<User> users;
 
-	public Role(int id, String name, String description) {
-		super();
+	public Role() {
+	}
+	
+	public Role(Integer id, String name, String description) {
 		this.id = id;
 		this.name = name;
 		this.description = description;
 	}
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

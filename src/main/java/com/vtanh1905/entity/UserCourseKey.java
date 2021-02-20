@@ -11,8 +11,8 @@ public class UserCourseKey implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Column(name = "user_id")
-	private int userId;
+	private Integer userId;
 	
 	@Column(name = "course_id")
-	private int courseId;
+	private Integer courseId;
 }

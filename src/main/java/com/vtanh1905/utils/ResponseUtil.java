@@ -2,7 +2,9 @@ package com.vtanh1905.utils;
 
 import java.sql.Timestamp;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -13,57 +15,82 @@ public class ResponseUtil {
 		public FormatResponseEntity(Object data, HttpStatus status) {
 			super(formatData(data, status), status);
 		}
-		
-		public FormatResponseEntity(Object data, int total, int skip, int limit,HttpStatus status) {
-			super(formatData(data, total, skip, limit, status), status);
+
+		public FormatResponseEntity(Object data, int total, int limit, HttpStatus status) {
+			super(formatData(data, total, limit, status), status);
 		}
 
 		public static void mappingCommonField(HashMap<String, Object> hashMap, Object data, HttpStatus status) {
+			hashMap.put("status", status.value());
+			hashMap.put("timestamp", new Timestamp(System.currentTimeMillis()));
 			// Check : if status code is 404, we will return error message
 			if (status.toString().charAt(0) == '4') {
 				hashMap.put("error", data);
 			} else {
 				hashMap.put("body", data);
 			}
-			
-			hashMap.put("status", status.value());
-			hashMap.put("timestamp", new Timestamp(System.currentTimeMillis()));
 		}
 
 		public static Object formatData(Object data, HttpStatus status) {
-			HashMap<String, Object> hashMap = new HashMap<String, Object>();
+			HashMap<String, Object> hashMap = new LinkedHashMap<String, Object>();
 			mappingCommonField(hashMap, data, status);
 			return hashMap;
 		}
 
-		public static Object formatData(Object data, int total, int skip, int limit, HttpStatus status) {
-			HashMap<String, Object> hashMap = new HashMap<String, Object>();
+		public static Object formatData(Object data, int totalPages, int totalElements, HttpStatus status) {
+			HashMap<String, Object> hashMap = new LinkedHashMap<String, Object>();
 			mappingCommonField(hashMap, data, status);
-			hashMap.put("total", total);
-			hashMap.put("skip", skip);
-			hashMap.put("limit", limit);
+			hashMap.put("totalPages", totalPages);
+			hashMap.put("totalElements", totalElements);
 			return hashMap;
 		}
 	};
 
 	public static Object writeGet(Object data) {
-		return new FormatResponseEntity(data, HttpStatus.CREATED);
+		try {
+			return new FormatResponseEntity(data, HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return writeBad();
 	}
-	
-	public static Object writeGet(Object data, int total, int skip, int limit) {
-		return new FormatResponseEntity(data, total, skip, limit, HttpStatus.CREATED);
+
+	public static <T> Object writeGetPagination(Page<T> page) {
+		try {
+
+			return new FormatResponseEntity(page.getContent(), page.getTotalPages(), page.getNumberOfElements(),
+					HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return writeBad();
 	}
 
 	public static Object writePost(Object data) {
-		return new FormatResponseEntity(data, HttpStatus.CREATED);
+		try {
+			return new FormatResponseEntity(data, HttpStatus.CREATED);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return writeBad();
 	}
 
 	public static Object writePut(Object data) {
-		return new FormatResponseEntity(data, HttpStatus.OK);
+		try {
+			return new FormatResponseEntity(data, HttpStatus.OK);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return writeBad();
 	}
 
 	public static Object writeDelete(Object data) {
-		return new FormatResponseEntity(data, HttpStatus.OK);
+		try {
+			return new FormatResponseEntity(data, HttpStatus.OK);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return writeBad();
 	}
 
 	public static Object writeBad() {

@@ -15,13 +15,13 @@ import javax.persistence.Table;
 public class Target {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private Integer id;
 	
 	@Column(length = 255)
 	private String title;
 	
 	@Column(name = "course_id")
-	private int course_id;
+	private Integer courseId;
 	
 	@OneToMany(mappedBy = "target")
 	private List<Course> course;
